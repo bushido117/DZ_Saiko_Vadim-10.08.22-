@@ -37,19 +37,29 @@ class SecondViewController: UIViewController {
         }
     }
     
+    @IBAction func precentTap(_ sender: Any) {
+        addToWorkings("%")
+        if validInput() {
+            let checkedWorkingForPrecent = workings.replacingOccurrences(of: "%", with: "* 0.01")
+            let expression = NSExpression(format: checkedWorkingForPrecent)
+            let result = expression.expressionValue(with: nil, context: nil) as! Double
+            let resultString = formatResult(result)
+            calculatorWorkings.text = resultString
+            calculatorResults.text = resultString
+            workings = resultString
+        } else {
+            alert()
+        }
+    }
+    
     @IBAction func equalTap(_ sender: Any) {
         if validInput() {
-        let checkedWorkingForPrecent = workings.replacingOccurrences(of: "%", with: "* 0.01")
-        let expression = NSExpression(format: checkedWorkingForPrecent)
-        let result = expression.expressionValue(with: nil, context: nil) as! Double
-        let resultString = formatResult(result)
-        calculatorResults.text = resultString
+            let expression = NSExpression(format: workings)
+            let result = expression.expressionValue(with: nil, context: nil) as! Double
+            let resultString = formatResult(result)
+            calculatorResults.text = resultString
         } else {
-            let alert = UIAlertController(title: "Invalid Input", message: "Calculator unable to do math based on input", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Remove last entered symbol", style: .default, handler: { _ in
-                self.workings.removeLast()
-                self.calculatorWorkings.text = self.workings}))
-            self.present(alert, animated: true, completion: nil)
+            alert()
         }
     }
     
@@ -66,9 +76,9 @@ class SecondViewController: UIViewController {
         var previous = -1
         
         for index in funcCharIndexes {
-            if index == 0 {
+            if index == 0 && (workings.first != "-") {
                 return false
-            } else if index == workings.count - 1 {
+            } else if (index == workings.count - 1) && (workings.last != "%") {
                 return false
             }
             if previous != -1 {
@@ -89,6 +99,8 @@ class SecondViewController: UIViewController {
         } else  if char == "+" {
             return true
         } else  if char == "-" {
+            return true
+        } else if char == "%" {
             return true
         }
         return false
@@ -115,6 +127,14 @@ class SecondViewController: UIViewController {
             }
             button.addAction(action, for: .touchUpInside)
         }
+    }
+    
+    fileprivate func alert() {
+        let alert = UIAlertController(title: "Invalid Input", message: "Calculator unable to do math based on input", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Remove last entered symbol", style: .default, handler: { _ in
+            self.workings.removeLast()
+            self.calculatorWorkings.text = self.workings}))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 

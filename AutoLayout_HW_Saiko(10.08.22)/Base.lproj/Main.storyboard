@@ -89,6 +89,9 @@
                                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="30"/>
                                                     <color key="baseForegroundColor" systemColor="systemOrangeColor"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="precentTap:" destination="4yz-9b-cCe" eventType="touchUpInside" id="uXd-kA-CxF"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sZv-g3-lYR">
                                                 <rect key="frame" x="310.5" y="0.0" width="103.5" height="116"/>
@@ -337,7 +340,6 @@
                         <outletCollection property="buttons" destination="rAs-5b-I06" collectionClass="NSMutableArray" id="N1N-vX-GR9"/>
                         <outletCollection property="buttons" destination="kmB-hV-igy" collectionClass="NSMutableArray" id="wBy-CF-Ts9"/>
                         <outletCollection property="buttons" destination="DxN-hG-sna" collectionClass="NSMutableArray" id="YnJ-qa-S4E"/>
-                        <outletCollection property="buttons" destination="dW5-vK-xHG" collectionClass="NSMutableArray" id="zx5-lI-BPs"/>
                         <outletCollection property="buttons" destination="sZv-g3-lYR" collectionClass="NSMutableArray" id="xPA-j9-gxi"/>
                     </connections>
                 </viewController>
